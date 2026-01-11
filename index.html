@@ -205,10 +205,12 @@
         }
         
         .time-btn.selected {
-            border-color: var(--accent-green);
-            background: rgba(0, 255, 136, 0.1);
-            box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
-        }
+    border-color: var(--accent-green);
+    background: #00ff88;     /* solid green */
+    color: #0f1419;         /* dark text */
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+}
+
         
         .btn {
             padding: 1.25rem 3rem;
@@ -593,7 +595,20 @@
             position: relative;
             transition: all 0.2s ease;
         }
-        
+        .bj-card.double-mark::after {
+    content: "DOUBLE";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: rgba(0, 212, 255, 0.95);
+    color: #0f1419;
+    font-weight: 800;
+    font-size: 0.55rem;
+    padding: 0.25rem 0.4rem;
+    border-radius: 10px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+}
+
         .bj-card:hover {
             transform: translateY(-5px);
         }
@@ -953,58 +968,38 @@
             }
 
             
-            /* COMPLETELY PREVENT SCROLL HOP */
-            html {
-                overflow: hidden;
-                position: fixed;
-                width: 100%;
-                height: 100%;
-            }
-            
-            body {
-                overflow: hidden;
-                position: fixed;
-                width: 100%;
-                height: 100vh;
-                margin: 0;
-                padding: 0;
-                touch-action: none;
-            }
-            
-            .container {
-                overflow: hidden;
-                height: 100vh;
-                width: 100vw;
-                position: fixed;
-                top: 0;
-                left: 0;
-            }
-            
-            /* ALL GAME PAGES: NO SCROLL */
-            .game-page {
-                height: 100vh;
-                overflow: hidden;
-                position: fixed;
-                width: 100%;
-                top: 0;
-                left: 0;
-            }
-            
-            #blackjack-game {
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-                touch-action: none;
-            }
-            
-            .blackjack-table {
-                flex: 1;
-                overflow: hidden;
-                display: flex;
-                flex-direction: column;
-                touch-action: none;
-            }
+            /* NORMAL WEBSITE BEHAVIOR (no app locking) */
+html, body {
+    position: static;
+    height: auto;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.game-page {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    height: auto;
+    overflow: visible;
+}
+
+#blackjack-game {
+    height: auto;
+    overflow: visible;
+}
+
+.blackjack-table {
+    overflow: visible;
+}
+
             
             /* PREVENT BUTTON SCROLL */
             button, .bj-btn, .btn, .control-btn {
@@ -2158,6 +2153,12 @@
             },
             
             async dealCardToHand(hand, card) {
+                // 🔥 If this hand just doubled, mark THIS card
+if (hand.pendingDoubleCardMark) {
+    card.isDoubleDownCard = true;
+    hand.pendingDoubleCardMark = false;
+}
+
                 hand.cards.push(card);
                 this.render();
                 
@@ -2256,6 +2257,8 @@
                 
                 const correct = this.getCorrectAction();
                 this.checkDecision('D', correct);
+
+                hand.pendingDoubleCardMark = true;
                 
                 await this.dealCardToHand(hand, this.dealCard());
                 hand.stood = true;
@@ -2599,12 +2602,15 @@ const canSplit = isTwoCards && (
                 const suitSymbol = this.suitSymbols[suit] || '♠';
                 const color = ['hearts','diamonds'].includes(suit) ? 'card-red' : 'card-black';
                 
-                return `
-                    <div class="bj-card">
-                        <div class="bj-card-rank ${color}">${rank}</div>
-                        <div class="bj-card-suit ${color}">${suitSymbol}</div>
-                    </div>
-                `;
+                const extraClass = card.isDoubleDownCard ? ' double-mark' : '';
+
+return `
+    <div class="bj-card${extraClass}">
+        <div class="bj-card-rank ${color}">${rank}</div>
+        <div class="bj-card-suit ${color}">${suitSymbol}</div>
+    </div>
+`;
+
             },
             
             sleep(ms) {
