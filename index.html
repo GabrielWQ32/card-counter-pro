@@ -988,6 +988,21 @@
   .player-hands {
       grid-template-columns: 1fr 1fr;
   }
+  @media (max-width: 768px) {
+  /* default stays 2 columns */
+  #player-hands.too-many {
+    grid-template-columns: 1fr;   /* stack hands */
+    overflow-y: auto;             /* scroll hands only */
+    align-content: start;
+    padding-bottom: 0.5rem;
+  }
+
+  /* stop cards from visually spilling out */
+  #player-hands.too-many .hand-cards {
+    margin-bottom: 0.25rem;
+  }
+}
+
 }
 
             .container {
@@ -2513,6 +2528,8 @@
                         <div class="hand-cards">${hand.cards.map(c => this.renderCard(c)).join('')}</div>
                     </div>
                 `).join('');
+                handsEl.classList.toggle('too-many', this.hands.length > 4);
+
             },
             
             renderCard(card) {
