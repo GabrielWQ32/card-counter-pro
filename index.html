@@ -8,7 +8,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="Card Counter Pro">
     <link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIkNhcmQgQ291bnRlciBQcm8iLAogICJzaG9ydF9uYW1lIjogIkNhcmQgUHJvIiwKICAiZGVzY3JpcHRpb24iOiAiTWFzdGVyIGNhcmQgY291bnRpbmcgYW5kIGJsYWNramFjayBzdHJhdGVneSIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBmMTQxOSIsCiAgInRoZW1lX2NvbG9yIjogIiMwZjE0MTkiLAogICJpY29ucyI6IFsKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBMU1USWdOVEV5SWo0OGNtVmpkQ0IzYVdSMGFEMGlOVEV5SWlCb1pXbG5hSFE5SWpVeE1pSWdabWxzYkQwaUl6Qm1NVFF4T1NJdlBqeDBaWGgwSUhnOUlqSTFOaUlnZVQwaU1qVTJJaUIwWlhoMExXRnVZMmh2Y2owaWJXbGtaR3hsSWlCbWIyNTBMV1poYldsc2VUMGljMkZ1Y3kxelpYSnBaaUlnWm1sc2JEMGlJekF3Wm1ZNE9DSWdabTl1ZEMxemFYcGxQU0l4TWpBaVBsYzhMM1JsZUhRK1BDOXpkbWMrIiwKICAgICAgInNpemVzIjogIjUxMng1MTIiLAogICAgICAidHlwZSI6ICJpbWFnZS9zdmcreG1sIgogICAgfSwKICAgIHsKICAgICAgInNyYyI6ICJkYXRhOmltYWdlL3N2Zyt4bWw7YmFzZTY0LFBITjJaeUI0Yld4dWN6MGlhSFIwY0RvdkwzZDNkeTUzTXk1dmNtY3ZNakF3TUM5emRtY2lJSFpwWlhkQ2IzZzlJakFnTUNBeE9UQWdNVGt3SWo0OGNtVmpkQ0IzYVdSMGFEMGlNVGt3SWlCb1pXbG5hSFE5SWpFNU1DSWdabWxzYkQwaUl6Qm1NVFF4T1NJdlBqeDBaWGgwSUhnOUlqazFJaUI1UFNJNU5TSWdkR1Y0ZEMxaGJtTm9iM0k5SW0xcFpHUnNaU0lnWm05dWRDMW1ZVzFwYkhrOUluTmhibk10YzJWeWFXWWlJR1pwYkd3OUlpTXdNR1ptT0RnaUlHWm9iZDB6TGpFNU9TQXRZM0pwWjJoME9pQW5OREF3SnpvaUlHWnZiblF0YzJsNlpUMGlOREJOWldScGRXMGlQakpXUEM5MFpYaDBQand2YzNablBnPT0iLAogICAgICAic2l6ZXMiOiAiMTkyeDE5MiIsCiAgICAgICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiCiAgICB9CiAgXQp9">
-    <title>Card Counter Pro - Master the Count & Blackjack</title>
+    <title>Blackjack Pro Trainer - Master the Count & Blackjack</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600;700&family=Courier+Prime:wght@400;700&display=swap');
         
@@ -319,7 +319,9 @@
         .game-page {
             min-height: 100vh;
             padding-top: 2rem;
-        }
+        
+                height: 100vh;
+                overflow: hidden;}
         
         .game-header {
             display: flex;
@@ -659,10 +661,7 @@
             display: none;
         }
         
-        .strategy-feedback.show {
-            display: block;
-            animation: slideDown 0.3s ease-out;
-        }
+        .strategy-feedback.show { display: none !important; }
         
         @keyframes slideDown {
             from { opacity: 0; transform: translateY(-20px); }
@@ -936,12 +935,93 @@
     
         /* ========== MOBILE: MAKE EVERYTHING FIT 390px × 844px ========== */
         @media (max-width: 768px) {
-            /* Force body to be mobile size */
-            body {
-                min-height: 100vh;
-                width: 100vw;
-                overflow-x: hidden;
+            /* FIX BOTTOM BUTTONS BEING CUT OFF */
+            #blackjack-game {
+                padding-bottom: 3rem;
             }
+            
+            #blackjack-game > div:last-child {
+                padding: 1rem;
+                padding-bottom: 3rem;
+                margin-bottom: 2rem;
+            }
+
+            #blackjack-game > div:last-child {
+                padding-bottom: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            
+            /* COMPLETELY PREVENT SCROLL HOP */
+            html {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+            }
+            
+            body {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+                touch-action: none;
+            }
+            
+            .container {
+                overflow: hidden;
+                height: 100vh;
+                width: 100vw;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+            
+            /* ALL GAME PAGES: NO SCROLL */
+            .game-page {
+                height: 100vh;
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+            }
+            
+            #blackjack-game {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+                touch-action: none;
+            }
+            
+            .blackjack-table {
+                flex: 1;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                touch-action: none;
+            }
+            
+            /* PREVENT BUTTON SCROLL */
+            button, .bj-btn, .btn, .control-btn {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            button:focus, button:active,
+            .bj-btn:focus, .bj-btn:active {
+                outline: none;
+            }
+            
+            /* ALLOW SCROLLING ONLY ON STRATEGY CHART */
+            #strategy-chart-page {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
             
             .container {
                 max-width: 100vw;
@@ -1025,7 +1105,9 @@
             .game-page {
                 min-height: 100vh;
                 padding-top: 0.5rem;
-            }
+            
+                height: 100vh;
+                overflow: hidden;}
             
             .game-header {
                 gap: 0.5rem;
@@ -1246,13 +1328,187 @@
             }
         }
 
+    
+        
+        .nosplit { background: rgba(139, 146, 168, 0.3); color: var(--text-secondary); }
+        .splitdas { background: rgba(255, 215, 0, 0.2); color: #ffeb3b; font-size: 0.75em; }
+        .doublestand { background: rgba(0, 212, 255, 0.25); color: #4fc3f7; font-size: 0.8em; }
+        .table-note { margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8; }
+
+        /* ===== STRATEGY CHART ===== */
+        .strategy-chart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .strategy-chart-container h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .chart-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .chart-section {
+            margin-bottom: 3rem;
+        }
+        
+        .chart-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .strategy-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .strategy-table thead {
+            background: var(--bg-surface);
+        }
+        
+        .strategy-table th {
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--accent-green);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .strategy-table td {
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .strategy-table td:first-child {
+            background: var(--bg-surface);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .hit { background: rgba(255, 71, 87, 0.3); color: var(--accent-red); }
+        .stand { background: rgba(0, 255, 136, 0.3); color: var(--accent-green); }
+        .double { background: rgba(0, 212, 255, 0.3); color: var(--accent-blue); }
+        .split { background: rgba(255, 215, 0, 0.3); color: var(--accent-gold); }
+        .surrender { background: rgba(139, 146, 168, 0.3); color: var(--text-secondary); }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .legend-box {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+        
+        /* Mobile Strategy Chart */
+        @media (max-width: 768px) {
+            /* FIX BOTTOM BUTTONS BEING CUT OFF */
+            #blackjack-game {
+                padding-bottom: 3rem;
+            }
+            
+            #blackjack-game > div:last-child {
+                padding: 1rem;
+                padding-bottom: 3rem;
+                margin-bottom: 2rem;
+            }
+
+            #blackjack-game > div:last-child {
+                padding-bottom: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .strategy-chart-container {
+                padding: 1rem;
+            }
+            
+            .strategy-chart-container h2 {
+                font-size: 2rem;
+            }
+            
+            .chart-subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
+            }
+            
+            .chart-section {
+                margin-bottom: 2rem;
+            }
+            
+            .chart-section h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .strategy-table {
+                font-size: 0.7rem;
+            }
+            
+            .strategy-table th {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
+            }
+            
+            .strategy-table td {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
+            }
+            
+            .legend {
+                gap: 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .legend-box {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
+            }
+        }
+
     </style>
 </head>
 <body>
     <div class="container">
         <!-- Landing Page -->
         <div id="landing-page" class="landing">
-            <h1>CARD COUNTER PRO</h1>
+            <h1>BLACKJACK PRO TRAINER</h1>
             <p class="subtitle">Master card counting & blackjack strategy</p>
             
             <div class="card-preview">
@@ -1293,6 +1549,7 @@
                 <div>
                     <button class="btn btn-primary" onclick="app.startBlackjack()">PLAY BLACKJACK</button>
                     <button class="btn btn-secondary" onclick="app.showLeaderboard()">BEST STREAKS</button>
+                    <button class="btn btn-secondary" onclick="app.showStrategyChart()">STRATEGY CHART</button>
                 </div>
             </div>
         </div>
@@ -1429,6 +1686,120 @@
                 <button class="btn btn-secondary" onclick="app.backToHome()">BACK</button>
             </div>
         </div>
+    
+        <!-- Basic Strategy Chart -->
+        <div id="strategy-chart-page" class="hidden">
+            <div class="strategy-chart-container">
+                <h2>BASIC STRATEGY CHART</h2>
+                <p class="chart-subtitle">Optimal play for every situation</p>
+                
+                <div class="chart-section">
+                    <h3>HARD TOTALS</h3>
+                    <table class="strategy-table">
+                        <thead>
+                            <tr>
+                                <th>Your Hand</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th>8</th>
+                                <th>9</th>
+                                <th>10</th>
+                                <th>A</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>17-20</td><td colspan="10" class="stand">STAND</td></tr>
+                            <tr><td>16</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="hit">H</td><td class="hit">H</td><td class="surrender">R</td><td class="surrender">R</td><td class="surrender">R</td></tr>
+                            <tr><td>15</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="surrender">R</td><td class="hit">H</td></tr>
+                            <tr><td>13-14</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>12</td><td class="hit">H</td><td class="hit">H</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>11</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td></tr>
+                            <tr><td>10</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>9</td><td class="hit">H</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>5-8</td><td colspan="10" class="hit">HIT</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="chart-section">
+                    <h3>SOFT TOTALS</h3>
+                    <table class="strategy-table">
+                        <thead>
+                            <tr>
+                                <th>Your Hand</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th>8</th>
+                                <th>9</th>
+                                <th>10</th>
+                                <th>A</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A,9</td><td colspan="10" class="stand">STAND</td></tr>
+                            <tr><td>A,8</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td><td class="stand">S</td></tr>
+                            <tr><td>A,7</td><td class="stand">S</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="stand">S</td><td class="stand">S</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>A,6</td><td class="hit">H</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>A,4-5</td><td class="hit">H</td><td class="hit">H</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>A,2-3</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="chart-section">
+                    <h3>PAIRS</h3>
+                    <table class="strategy-table">
+                        <thead>
+                            <tr>
+                                <th>Your Hand</th>
+                                <th>2</th>
+                                <th>3</th>
+                                <th>4</th>
+                                <th>5</th>
+                                <th>6</th>
+                                <th>7</th>
+                                <th>8</th>
+                                <th>9</th>
+                                <th>10</th>
+                                <th>A</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>A,A</td><td colspan="10" class="split">SPLIT</td></tr>
+                            <tr><td>10,10</td><td colspan="10" class="stand">STAND</td></tr>
+                            <tr><td>9,9</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="stand">S</td><td class="split">P</td><td class="split">P</td><td class="stand">S</td><td class="stand">S</td></tr>
+                            <tr><td>8,8</td><td colspan="10" class="split">SPLIT</td></tr>
+                            <tr><td>7,7</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>6,6</td><td class="hit">H</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>5,5</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="double">D</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>4,4</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="split">P</td><td class="split">P</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                            <tr><td>2,2-3,3</td><td class="hit">H</td><td class="hit">H</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="split">P</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td><td class="hit">H</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="legend">
+                    <div class="legend-item"><span class="legend-box hit">H</span> Hit</div>
+                    <div class="legend-item"><span class="legend-box stand">S</span> Stand</div>
+                    <div class="legend-item"><span class="legend-box double">D</span> Double</div>
+                    <div class="legend-item"><span class="legend-box split">P</span> Split</div>
+                    <div class="legend-item"><span class="legend-box surrender">R</span> Surrender</div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <button class="btn btn-secondary" onclick="app.backToHome()">BACK TO HOME</button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script>
@@ -1481,6 +1852,10 @@
                 blackjackGame.start();
             },
             
+            showStrategyChart() {
+                this.showPage('strategy-chart-page');
+            },
+            
             showLeaderboard() {
                 const board = this.currentMode === 'counting' ? countingGame.getLeaderboard() : blackjackGame.getLeaderboard();
                 const listEl = document.getElementById('leaderboard-list');
@@ -1504,7 +1879,7 @@
             },
             
             showPage(page) {
-                ['landing-page', 'counting-game', 'blackjack-setup', 'blackjack-game', 'answer-page', 'leaderboard-page'].forEach(p => {
+                ['landing-page', 'counting-game', 'blackjack-setup', 'blackjack-game', 'answer-page', 'leaderboard-page', 'strategy-chart-page'].forEach(p => {
                     document.getElementById(p)?.classList.add('hidden');
                 });
                 document.getElementById(page)?.classList.remove('hidden');
@@ -2053,14 +2428,14 @@
             
             checkDecision(action, correct) {
                 if (action === correct) {
-                    this.showFeedback('✓ Correct!', true);
+                    // Feedback removed
                     this.perfectStreak++;
                     localStorage.setItem('bjPerfectStreak', this.perfectStreak);
                     document.getElementById('perfect-streak').textContent = this.perfectStreak;
                     this.saveStreak();
                 } else {
                     const actions = {H:'HIT',S:'STAND',D:'DOUBLE',P:'SPLIT',R:'SURRENDER'};
-                    this.showFeedback(`✗ Incorrect! Should ${actions[correct]}`, false);
+                    // Feedback removed
                     this.perfectStreak = 0;
                     localStorage.setItem('bjPerfectStreak', '0');
                     document.getElementById('perfect-streak').textContent = '0';
@@ -2073,33 +2448,54 @@
                 const dealerValue = dealerUp.rank === 'A' ? 11 : ['J','Q','K'].includes(dealerUp.rank) ? 10 : parseInt(dealerUp.rank);
                 const handTotal = this.calculateTotal(hand.cards);
                 
-                // Pair splitting
+                // PAIRS
                 if (hand.cards.length === 2 && hand.cards[0].rank === hand.cards[1].rank) {
                     const rank = hand.cards[0].rank;
                     if (['A','8'].includes(rank)) return 'P';
+                    if (rank === '10' || ['J','Q','K'].includes(rank)) return 'S';
                     if (rank === '9' && ![7,10,11].includes(dealerValue)) return 'P';
-                    if (['2','3','7'].includes(rank) && dealerValue <= 7) return 'P';
-                    if (['4','6'].includes(rank) && dealerValue <= 6) return 'P';
+                    if (rank === '7' && dealerValue <= 7) return 'P';
+                    if (rank === '6' && dealerValue >= 3 && dealerValue <= 6) return 'P';
+                    if (rank === '5') return dealerValue <= 9 ? 'D' : 'H';
+                    if (rank === '4') return 'H';
+                    if (['2','3'].includes(rank) && dealerValue >= 4 && dealerValue <= 7) return 'P';
                 }
                 
-                // Soft hands
+                // SOFT
                 const hasAce = hand.cards.some(c => c.rank === 'A') && handTotal <= 21;
                 if (hasAce && handTotal < 21) {
-                    if (handTotal >= 19) return 'S';
-                    if (handTotal === 18 && dealerValue >= 9) return 'H';
-                    if (handTotal === 18) return 'S';
+                    if (handTotal === 20) return 'S';
+                    if (handTotal === 19) return 'S';
+                    if (handTotal === 18) {
+                        if (dealerValue >= 2 && dealerValue <= 6 && hand.cards.length === 2) return 'D';
+                        if (dealerValue >= 7 && dealerValue <= 8) return 'S';
+                        return 'H';
+                    }
+                    if (handTotal === 17 && dealerValue >= 3 && dealerValue <= 6 && hand.cards.length === 2) return 'D';
+                    if (handTotal === 17) return 'H';
+                    if (handTotal >= 15 && handTotal <= 16 && dealerValue >= 4 && dealerValue <= 6 && hand.cards.length === 2) return 'D';
+                    if (handTotal >= 15 && handTotal <= 16) return 'H';
+                    if (handTotal >= 13 && handTotal <= 14 && dealerValue >= 5 && dealerValue <= 6 && hand.cards.length === 2) return 'D';
                     return 'H';
                 }
                 
-                // Hard hands
-                if (handTotal <= 8) return 'H';
-                if (handTotal === 9 && dealerValue >= 3 && dealerValue <= 6 && hand.cards.length === 2) return 'D';
-                if (handTotal === 10 && dealerValue <= 9 && hand.cards.length === 2) return 'D';
-                if (handTotal === 11 && hand.cards.length === 2) return 'D';
-                if (handTotal === 12 && dealerValue >= 4 && dealerValue <= 6) return 'S';
-                if (handTotal >= 13 && handTotal <= 16 && dealerValue <= 6) return 'S';
-                if (handTotal === 16 && dealerValue >= 9 && hand.cards.length === 2) return 'R';
+                // HARD
                 if (handTotal >= 17) return 'S';
+                if (handTotal === 16) {
+                    if (dealerValue >= 2 && dealerValue <= 6) return 'S';
+                    if (hand.cards.length === 2 && dealerValue >= 9) return 'R';
+                    return 'H';
+                }
+                if (handTotal === 15) {
+                    if (dealerValue >= 2 && dealerValue <= 6) return 'S';
+                    if (hand.cards.length === 2 && dealerValue === 10) return 'R';
+                    return 'H';
+                }
+                if (handTotal >= 13 && handTotal <= 14) return (dealerValue >= 2 && dealerValue <= 6) ? 'S' : 'H';
+                if (handTotal === 12) return (dealerValue >= 4 && dealerValue <= 6) ? 'S' : 'H';
+                if (handTotal === 11 && hand.cards.length === 2) return 'D';
+                if (handTotal === 10 && hand.cards.length === 2) return dealerValue <= 9 ? 'D' : 'H';
+                if (handTotal === 9 && hand.cards.length === 2) return (dealerValue >= 3 && dealerValue <= 6) ? 'D' : 'H';
                 return 'H';
             },
             
