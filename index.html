@@ -949,381 +949,80 @@
         /* MOBILE APP REDESIGN - EVERYTHING VISIBLE AT ONCE */
         
     
-        /* ========== MOBILE: MAKE EVERYTHING FIT 390px × 844px ========== */
-        @media (max-width: 768px) {
-            /* FIX BOTTOM BUTTONS BEING CUT OFF */
-            #blackjack-game {
-                padding-bottom: 3rem;
-            }
-            
-            #blackjack-game > div:last-child {
-                padding: 1rem;
-                padding-bottom: 3rem;
-                margin-bottom: 2rem;
-            }
+        /* ========== MOBILE (DESKTOP-FAITHFUL): keep same layout, just scale safely ========== */
+@media (max-width: 768px) {
 
-            #blackjack-game > div:last-child {
-                padding-bottom: 2rem;
-                margin-bottom: 1rem;
-            }
-
-            
-            /* NORMAL WEBSITE BEHAVIOR (no app locking) */
-html, body {
+  /* Let the site behave like a normal website */
+  html, body {
     position: static;
     height: auto;
     overflow-x: hidden;
     overflow-y: auto;
-}
+  }
 
-.container {
+  body {
+    touch-action: auto;
+  }
+
+  .container {
     position: relative;
     width: 100%;
-    height: auto;
+    max-width: 1600px;   /* keeps your desktop intent */
+    margin: 0 auto;
+    padding: 1rem;
     overflow: visible;
-}
+  }
 
-.game-page {
+  .game-page {
     position: relative;
-    width: 100%;
+    height: auto;
     min-height: 100vh;
-    height: auto;
     overflow: visible;
+    padding-top: 1rem;
+  }
+
+  /* === Landing: keep same design, smaller type === */
+  .landing h1 { font-size: 3rem; }
+  .landing .subtitle { font-size: 1rem; }
+
+  /* === Card counting: shrink the card, keep layout === */
+  .playing-card { width: 140px; height: 196px; }
+  .card-rank { font-size: 4rem; }
+  .card-suit { font-size: 3rem; }
+
+  .control-btn { width: 56px; height: 56px; font-size: 1.4rem; }
+
+  /* === Blackjack: keep the same “table” look, just reduce padding === */
+  .blackjack-table {
+    max-width: 1400px;
+    margin: 1rem auto;
+    padding: 1.5rem 1rem;
+    border-radius: 200px;     /* keep desktop table shape */
+  }
+
+  /* IMPORTANT: do NOT force 2 columns on mobile.
+     Desktop auto-fit will naturally collapse to 1 column on phones. */
+  .player-hands {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  /* Keep cards readable without changing layout structure */
+  .bj-card { width: 56px; height: 80px; }
+  .bj-card-rank { font-size: 1.6rem; }
+  .bj-card-suit { font-size: 1.2rem; }
+
+  /* Actions: keep them usable, wrap naturally */
+  .bj-actions { gap: 0.75rem; }
+  .bj-btn { padding: 0.75rem 1.25rem; font-size: 0.9rem; }
+
+  /* Deck visual: smaller but consistent */
+  .deck-holder { width: 56px; top: 12px; right: 16px; }
+  .deck-stack, .deck-stack::before, .deck-stack::after { height: 85px; }
+
+  /* Prevent “button cut off” without locking viewport */
+  #blackjack-game { padding-bottom: 2rem; }
 }
-
-#blackjack-game {
-    height: auto;
-    overflow: visible;
-}
-
-.blackjack-table {
-    overflow: visible;
-}
-
-            
-            /* PREVENT BUTTON SCROLL */
-            button, .bj-btn, .btn, .control-btn {
-                touch-action: manipulation;
-                -webkit-tap-highlight-color: transparent;
-            }
-            
-            button:focus, button:active,
-            .bj-btn:focus, .bj-btn:active {
-                outline: none;
-            }
-            
-            /* ALLOW SCROLLING ONLY ON STRATEGY CHART */
-            #strategy-chart-page {
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            
-            .container {
-                max-width: 100vw;
-                padding: 0.5rem;
-            }
-            
-            /* ===== HOME PAGE ===== */
-            .landing {
-                min-height: 100vh;
-                padding: 1rem;
-                justify-content: space-evenly;
-            }
-            
-            .landing h1 {
-                font-size: 2.5rem;
-                margin-bottom: 0.5rem;
-                letter-spacing: 1px;
-            }
-            
-            .landing .subtitle {
-                font-size: 0.85rem;
-                margin-bottom: 1rem;
-            }
-            
-            .card-preview {
-                gap: 0.5rem;
-                margin-bottom: 1rem;
-            }
-            
-            .preview-card {
-                width: 45px;
-                height: 63px;
-                font-size: 1.5rem;
-            }
-            
-            .mode-selector {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-                margin-bottom: 1rem;
-            }
-            
-            .mode-card {
-                padding: 1.2rem;
-                border-radius: 12px;
-            }
-            
-            .mode-icon {
-                font-size: 2.5rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .mode-title {
-                font-size: 1.3rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .mode-desc {
-                font-size: 0.8rem;
-            }
-            
-            .time-options {
-                gap: 0.5rem;
-                margin-bottom: 1rem;
-            }
-            
-            .time-btn {
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-            }
-            
-            .btn {
-                padding: 0.75rem 1.2rem;
-                font-size: 0.85rem;
-            }
-            
-            .btn-secondary {
-                margin-left: 0.5rem;
-            }
-            
-            /* ===== CARD COUNTING GAME ===== */
-            .game-page {
-                min-height: 100vh;
-                padding-top: 0.5rem;
-            
-                height: 100vh;
-                overflow: hidden;}
-            
-            .game-header {
-                gap: 0.5rem;
-                margin-bottom: 1rem;
-                flex-wrap: wrap;
-            }
-            
-            .stat-box {
-                min-width: 100px;
-                padding: 0.75rem 1rem;
-            }
-            
-            .stat-label {
-                font-size: 0.7rem;
-            }
-            
-            .stat-value {
-                font-size: 1.5rem;
-            }
-            
-            .card-area {
-                min-height: 200px;
-                margin-bottom: 1rem;
-            }
-            
-            .playing-card {
-                width: 120px;
-                height: 168px;
-            }
-            
-            .card-rank {
-                font-size: 3.5rem;
-            }
-            
-            .card-suit {
-                font-size: 2.5rem;
-            }
-            
-            .card-corners {
-                font-size: 0.9rem;
-            }
-            
-            .corner-suit {
-                font-size: 0.7rem;
-            }
-            
-            .controls {
-                gap: 1rem;
-                margin-bottom: 1rem;
-            }
-            
-            .control-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-            }
-            
-            /* ===== BLACKJACK ===== */
-            .blackjack-table {
-                border-radius: 100px;
-                padding: 1rem;
-                margin: 1rem 0.5rem;
-            }
-            
-            .dealer-area {
-                margin-bottom: 1.5rem;
-            }
-            
-            .dealer-label {
-                font-size: 1rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .dealer-cards {
-                gap: -20px;
-                min-height: 100px;
-            }
-            
-            .dealer-total {
-                font-size: 1.3rem;
-                margin-top: 0.5rem;
-            }
-            
-            .player-hands {
-                grid-template-columns: 1fr 1fr;
-                gap: 0.8rem;
-                margin-bottom: 1rem;
-            }
-            
-            .player-hand {
-                padding: 0.8rem;
-                border-radius: 10px;
-            }
-            
-            .hand-label {
-                font-size: 0.75rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .hand-result {
-                font-size: 0.85rem;
-            }
-            
-            .hand-cards {
-                gap: -15px;
-                min-height: 80px;
-                margin-bottom: 1rem;
-            }
-            
-            .bj-card {
-                width: 45px;
-                height: 64px;
-            }
-            
-            .bj-card-rank {
-                font-size: 1.3rem;
-            }
-            
-            .bj-card-suit {
-                font-size: 1rem;
-            }
-            
-            .bj-actions {
-                gap: 0.6rem;
-                margin-top: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .bj-btn {
-                padding: 0.65rem 1.2rem;
-                font-size: 0.8rem;
-            }
-            
-            .deck-holder {
-                width: 50px;
-                top: 10px;
-                right: 20px;
-            }
-            
-            .deck-stack {
-                height: 75px;
-            }
-            
-            .deck-stack::before,
-            .deck-stack::after {
-                height: 75px;
-            }
-            
-            .strategy-feedback {
-                max-width: 90%;
-                margin: 1rem auto;
-                padding: 0.8rem;
-                font-size: 0.85rem;
-            }
-            
-            /* ===== ANSWER PAGE ===== */
-            .answer-section {
-                max-width: 90%;
-                padding: 1.5rem;
-                margin: 1rem auto;
-            }
-            
-            .answer-section h2 {
-                font-size: 1.8rem;
-                margin-bottom: 1rem;
-            }
-            
-            .answer-input {
-                padding: 0.8rem;
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            
-            .answer-feedback {
-                margin: 1rem 0;
-                padding: 0.8rem;
-                font-size: 0.9rem;
-            }
-            
-            /* ===== LEADERBOARD ===== */
-            .leaderboard {
-                max-width: 90%;
-                margin: 1.5rem auto;
-                padding: 1.5rem;
-            }
-            
-            .leaderboard h2 {
-                font-size: 2rem;
-                margin-bottom: 1rem;
-            }
-            
-            .leaderboard-item {
-                padding: 0.8rem;
-                margin-bottom: 0.6rem;
-            }
-            
-            .rank {
-                font-size: 1.3rem;
-                min-width: 40px;
-            }
-            
-            .score-cards {
-                font-size: 1rem;
-            }
-            
-            /* ===== BLACKJACK SETUP ===== */
-            #blackjack-setup .answer-section {
-                padding: 1.2rem;
-            }
-            
-            #blackjack-setup h2 {
-                font-size: 1.5rem;
-            }
-            
-            #blackjack-setup .stat-label {
-                font-size: 0.75rem;
-            }
-        }
-
     
         
         .nosplit { background: rgba(139, 146, 168, 0.3); color: var(--text-secondary); }
