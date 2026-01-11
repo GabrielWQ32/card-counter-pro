@@ -319,9 +319,25 @@
         .game-page {
             min-height: 100vh;
             padding-top: 2rem;
-        
-                height: 100vh;
-                overflow: hidden;}
+            display: flex;
+            flex-direction: column;
+        }
+#blackjack-game {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#blackjack-game .blackjack-table {
+    flex: 1;
+    overflow-y: auto;
+}
+
+#blackjack-game > div:last-child {
+    flex-shrink: 0;
+    padding-bottom: 1.5rem;
+}
+
         
         .game-header {
             display: flex;
@@ -486,7 +502,20 @@
                 inset 0 0 100px rgba(0, 0, 0, 0.3);
             position: relative;
         }
-        
+        /* DESKTOP BLACKJACK TABLE */
+.blackjack-table {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    height: 75vh;
+    width: 90vw;
+    max-width: 1400px;
+    margin: 2rem auto;
+    border-radius: 200px 200px 80px 80px;
+}
+.player-hands {
+    grid-template-columns: repeat(4, 1fr);
+}
+
         .dealer-area {
             text-align: center;
             margin-bottom: 3rem;
@@ -684,7 +713,7 @@
         .deck-holder {
             position: absolute;
             top: 20px;
-            right: 40px;
+            right: 120px;
             width: 80px;
         }
         
@@ -946,7 +975,21 @@
                 margin: 0;
                 padding: 0;
             }
-            
+            @media (max-width: 768px) {
+  .blackjack-table {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      width: 100vw;
+      border-radius: 50px;
+      padding: 0.5rem;
+  }
+
+  .player-hands {
+      grid-template-columns: 1fr 1fr;
+  }
+}
+
             .container {
                 overflow: hidden;
                 height: 100vh;
