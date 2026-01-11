@@ -965,48 +965,75 @@
         /* ========== MOBILE: MAKE EVERYTHING FIT 390px × 844px ========== */
         
         /* ========== MOBILE PERFECTION - EVERY PAGE FITS 844px ========== */
-        @media (max-width: 768px) {
-            /* GLOBAL - NO SCROLL */
-            html, body {
-                overflow: hidden;
-                position: fixed;
-                width: 100%;
-                height: 100vh;
-                margin: 0;
-                padding: 0;
-            }
-            @media (max-width: 768px) {
-  .blackjack-table {
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      width: 100vw;
-      border-radius: 50px;
-      padding: 0.5rem;
+        rom visually spilling out */
+  #player-hands.too-many .hand-cards {
+    margin-bottom: 0.25rem;
+  }
+@media (max-width: 768px) {
+  /* GLOBAL - NO SCROLL (your choice, keep if you want app-like) */
+  html, body {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
   }
 
-  .player-hands {
-      grid-template-columns: 1fr 1fr;
+  /* MOBILE TABLE LAYOUT */
+  .blackjack-table {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    border-radius: 50px;
+    padding: 0.5rem;
+    margin: 0;
+
+    /* IMPORTANT: prevents deck/cards being clipped */
+    overflow: visible;
   }
-  @media (max-width: 768px) {
-  /* default stays 2 columns */
+
+  /* HAND GRID DEFAULT (2 columns) */
+  #player-hands {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem;
+
+    /* THIS is what allows internal scrolling to work */
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  /* WHEN SPLITS CREATE MANY HANDS */
   #player-hands.too-many {
     grid-template-columns: 1fr;   /* stack hands */
-    overflow-y: auto;             /* scroll hands only */
+    overflow-y: auto;             /* scroll hands ONLY */
     align-content: start;
     padding-bottom: 0.5rem;
   }
 
-  /* stop cards from visually spilling out */
+  /* keep hand content from spilling */
+  #player-hands.too-many .player-hand {
+    min-height: auto;
+  }
+
   #player-hands.too-many .hand-cards {
     margin-bottom: 0.25rem;
+    flex-wrap: wrap;
+  }
+
+  /* deck holder stays visible */
+  .deck-holder {
+    width: 45px;
+    top: 8px;
+    right: 8px;
+    z-index: 50;
   }
 }
 
-}
-
-            .container {
-                overflow: hidden;
+  /* stop cards fverflow: hidden;
                 height: 100vh;
                 width: 100vw;
                 padding: 0;
