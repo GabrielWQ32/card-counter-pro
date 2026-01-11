@@ -931,10 +931,456 @@
         
         .hidden { display: none !important; }
         
+        /* MOBILE APP REDESIGN - EVERYTHING VISIBLE AT ONCE */
         @media (max-width: 768px) {
-            .mode-selector { grid-template-columns: 1fr; }
-            .skin-grid { grid-template-columns: repeat(3, 1fr); }
-            .player-hands { grid-template-columns: 1fr; }
+            /* Remove all page padding/margins */
+            body {
+                overflow: hidden;
+            }
+            
+            .container {
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            /* ========== LANDING PAGE - FIT TO SCREEN ========== */
+            .landing {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 1rem;
+                overflow: hidden;
+            }
+            
+            .landing h1 {
+                font-size: 2.2rem;
+                margin: 0.5rem 0;
+            }
+            
+            .subtitle {
+                font-size: 0.85rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .card-preview {
+                font-size: 1.5rem;
+                gap: 0.3rem;
+                margin: 0.5rem 0;
+            }
+            
+            .mode-selector {
+                grid-template-columns: 1fr;
+                gap: 0.8rem;
+                padding: 0;
+                margin: 0.5rem 0;
+            }
+            
+            .mode-card {
+                padding: 1rem;
+                min-height: auto;
+            }
+            
+            .mode-icon {
+                font-size: 2rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .mode-title {
+                font-size: 1.1rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .mode-desc {
+                font-size: 0.75rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            #counting-options,
+            #blackjack-options {
+                margin: 0.5rem 0;
+            }
+            
+            .time-options {
+                gap: 0.5rem;
+                margin: 0.5rem 0;
+            }
+            
+            .time-btn {
+                padding: 0.6rem;
+                font-size: 0.85rem;
+            }
+            
+            .btn {
+                padding: 0.7rem 1.2rem;
+                font-size: 0.9rem;
+                margin: 0.3rem;
+            }
+            
+            /* ========== CARD COUNTING - SINGLE SCREEN ========== */
+            .game-page {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+                overflow: hidden;
+            }
+            
+            .game-header {
+                flex-direction: row;
+                justify-content: space-around;
+                gap: 0.5rem;
+                padding: 0.5rem;
+                background: rgba(0, 0, 0, 0.3);
+                flex-shrink: 0;
+            }
+            
+            .stat-box {
+                min-width: auto;
+                padding: 0.5rem 0.8rem;
+                flex: 1;
+            }
+            
+            .stat-label {
+                font-size: 0.65rem;
+                margin-bottom: 0.2rem;
+            }
+            
+            .stat-value {
+                font-size: 1.2rem !important;
+            }
+            
+            .game-container {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                align-items: center;
+                padding: 0.5rem;
+                overflow: hidden;
+            }
+            
+            .timer {
+                font-size: 2rem;
+                margin: 0;
+            }
+            
+            .card-display {
+                width: 140px;
+                height: 196px;
+                margin: 0.5rem 0;
+            }
+            
+            .card-value {
+                font-size: 3.5rem;
+            }
+            
+            .card-suit {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: row;
+                gap: 1rem;
+                margin: 0.5rem 0;
+            }
+            
+            .stat-item {
+                font-size: 0.85rem;
+            }
+            
+            .controls {
+                flex-direction: row;
+                gap: 0.5rem;
+                width: 100%;
+                padding: 0.5rem;
+                flex-shrink: 0;
+            }
+            
+            .controls .btn {
+                flex: 1;
+                margin: 0;
+                padding: 0.8rem 0.5rem;
+                font-size: 0.85rem;
+            }
+            
+            /* ========== BLACKJACK - TRUE MOBILE APP LAYOUT ========== */
+            #blackjack-game {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                padding: 0;
+                overflow: hidden;
+            }
+            
+            #blackjack-game .game-header {
+                padding: 0.3rem 0.5rem;
+            }
+            
+            #blackjack-game .stat-box {
+                padding: 0.3rem 0.5rem;
+            }
+            
+            #blackjack-game .stat-value {
+                font-size: 1rem !important;
+            }
+            
+            .strategy-feedback {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                font-size: 0.85rem;
+                padding: 0.6rem 1rem;
+            }
+            
+            .blackjack-table {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                padding: 0.3rem;
+                margin: 0;
+                overflow: hidden;
+                justify-content: space-between;
+            }
+            
+            /* Dealer area - compact at top */
+            .dealer-area {
+                padding: 0.3rem;
+                flex-shrink: 0;
+            }
+            
+            .dealer-label {
+                font-size: 0.7rem;
+                margin-bottom: 0.3rem;
+            }
+            
+            .dealer-cards {
+                gap: -15px;
+                min-height: 50px;
+            }
+            
+            /* Player hands - 2x2 grid, compact */
+            .player-hands {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.3rem;
+                padding: 0.3rem 0;
+                flex: 1;
+                overflow: visible;
+            }
+            
+            .player-hand {
+                padding: 0.3rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+            
+            .hand-label {
+                font-size: 0.65rem;
+                margin-bottom: 0.2rem;
+            }
+            
+            .hand-result {
+                font-size: 0.75rem;
+            }
+            
+            .hand-cards {
+                gap: -15px;
+                min-height: 45px;
+                margin-bottom: 0;
+            }
+            
+            /* Cards - smaller for mobile */
+            .bj-card {
+                width: 35px;
+                height: 49px;
+            }
+            
+            .bj-card-rank {
+                font-size: 0.65rem;
+                top: 2px;
+                left: 2px;
+            }
+            
+            .bj-card-suit {
+                font-size: 0.8rem;
+                top: 2px;
+                right: 2px;
+            }
+            
+            .bj-card.face-down {
+                width: 35px;
+                height: 49px;
+            }
+            
+            /* Actions - compact buttons at bottom */
+            .bj-actions {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.3rem;
+                padding: 0.3rem;
+                flex-shrink: 0;
+                background: rgba(0, 0, 0, 0.2);
+            }
+            
+            .bj-btn {
+                padding: 0.6rem 0.3rem;
+                font-size: 0.7rem;
+                margin: 0;
+            }
+            
+            /* Deck holder - smaller */
+            .deck-holder {
+                width: 35px;
+                top: 5px;
+                right: 5px;
+            }
+            
+            .deck-stack {
+                height: 52px;
+            }
+            
+            .deck-stack::before,
+            .deck-stack::after {
+                height: 52px;
+            }
+            
+            /* Bottom action buttons - more compact */
+            #blackjack-game > div:last-child {
+                padding: 0.3rem;
+                margin: 0;
+                flex-shrink: 0;
+            }
+            
+            #blackjack-game > div:last-child .btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.8rem;
+                margin: 0.2rem;
+            }
+            
+            /* ========== SETUP PAGES - FIT TO SCREEN ========== */
+            #blackjack-setup,
+            .answer-page {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow: hidden;
+            }
+            
+            .answer-section {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+            
+            .answer-section h2 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            
+            .answer-section > div {
+                margin: 0.8rem 0;
+            }
+            
+            /* ========== LEADERBOARD - FIT TO SCREEN ========== */
+            #leaderboard-page {
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+            
+            .leaderboard {
+                padding: 1rem;
+                margin: 0.5rem;
+                overflow-y: auto;
+                flex: 1;
+            }
+            
+            .leaderboard h2 {
+                font-size: 1.8rem;
+                margin-bottom: 1rem;
+            }
+            
+            .leaderboard-item {
+                padding: 0.8rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .rank {
+                font-size: 1.3rem;
+                min-width: 40px;
+            }
+            
+            .score-cards {
+                font-size: 1.1rem;
+            }
+            
+            /* ========== FIREWORKS - SMALLER ========== */
+            .firework {
+                width: 3px;
+                height: 3px;
+            }
+        }
+        
+        /* ========== EXTRA SMALL PHONES ========== */
+        @media (max-width: 390px) {
+            .landing h1 {
+                font-size: 1.8rem;
+            }
+            
+            .card-display {
+                width: 120px;
+                height: 168px;
+            }
+            
+            .card-value {
+                font-size: 3rem;
+            }
+            
+            .bj-card {
+                width: 32px;
+                height: 45px;
+            }
+            
+            .bj-card-rank {
+                font-size: 0.6rem;
+            }
+            
+            .bj-card-suit {
+                font-size: 0.7rem;
+            }
+            
+            .bj-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .bj-btn {
+                font-size: 0.65rem;
+                padding: 0.5rem 0.2rem;
+            }
+        }
+        
+        /* ========== LANDSCAPE MODE ========== */
+        @media (max-width: 896px) and (orientation: landscape) {
+            .blackjack-table {
+                flex-direction: row;
+            }
+            
+            .dealer-area {
+                flex: 0.3;
+            }
+            
+            .player-hands {
+                flex: 0.5;
+            }
+            
+            .bj-actions {
+                flex: 0.2;
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
