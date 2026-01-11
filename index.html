@@ -316,26 +316,11 @@
         }
         
         /* Game Page */
-        .game-page {
-            min-height: 100vh;
-            padding-top: 2rem;
-            display: flex;
-            flex-direction: column;
-        }
-#blackjack-game {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-#blackjack-game .blackjack-table {
-    flex: 1;
-    overflow-y: auto;
-}
-
-#blackjack-game > div:last-child {
-    flex-shrink: 0;
-    padding-bottom: 1.5rem;
+        .game-page{
+  min-height: 100vh;
+  padding-top: 2rem;
+  height: auto;            /* <-- allow content to grow */
+  overflow: visible;       /* <-- don't clip */
 }
 
         
@@ -502,20 +487,7 @@
                 inset 0 0 100px rgba(0, 0, 0, 0.3);
             position: relative;
         }
-        /* DESKTOP BLACKJACK TABLE */
-.blackjack-table {
-    display: grid;
-    grid-template-rows: auto 1fr auto;
-    height: 75vh;
-    width: 90vw;
-    max-width: 1400px;
-    margin: 2rem auto;
-    border-radius: 200px 200px 80px 80px;
-}
-.player-hands {
-    grid-template-columns: repeat(4, 1fr);
-}
-
+        
         .dealer-area {
             text-align: center;
             margin-bottom: 3rem;
@@ -963,151 +935,166 @@
         
     
         /* ========== MOBILE: MAKE EVERYTHING FIT 390px × 844px ========== */
-        
-        /* ========== MOBILE PERFECTION - EVERY PAGE FITS 844px ========== */
-        rom visually spilling out */
-  #player-hands.too-many .hand-cards {
-    margin-bottom: 0.25rem;
-  }
-@media (max-width: 768px) {
-  /* GLOBAL - NO SCROLL (your choice, keep if you want app-like) */
-  html, body {
-    overflow: hidden;
-    position: fixed;
-    width: 100%;
-    height: 100vh;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* MOBILE TABLE LAYOUT */
-  .blackjack-table {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    width: 100vw;
-    border-radius: 50px;
-    padding: 0.5rem;
-    margin: 0;
-
-    /* IMPORTANT: prevents deck/cards being clipped */
-    overflow: visible;
-  }
-
-  /* HAND GRID DEFAULT (2 columns) */
-  #player-hands {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.4rem;
-
-    /* THIS is what allows internal scrolling to work */
-    flex: 1;
-    min-height: 0;
-    overflow: hidden;
-  }
-
-  /* WHEN SPLITS CREATE MANY HANDS */
-  #player-hands.too-many {
-    grid-template-columns: 1fr;   /* stack hands */
-    overflow-y: auto;             /* scroll hands ONLY */
-    align-content: start;
-    padding-bottom: 0.5rem;
-  }
-
-  /* keep hand content from spilling */
-  #player-hands.too-many .player-hand {
-    min-height: auto;
-  }
-
-  #player-hands.too-many .hand-cards {
-    margin-bottom: 0.25rem;
-    flex-wrap: wrap;
-  }
-
-  /* deck holder stays visible */
-  .deck-holder {
-    width: 45px;
-    top: 8px;
-    right: 8px;
-    z-index: 50;
-  }
-}
-
-  /* stop cards fverflow: hidden;
-                height: 100vh;
-                width: 100vw;
-                padding: 0;
+        @media (max-width: 768px) {
+            /* FIX BOTTOM BUTTONS BEING CUT OFF */
+            #blackjack-game {
+                padding-bottom: 3rem;
             }
             
-            /* ===== HOME PAGE - FIT 844px ===== */
-            .landing {
+            #blackjack-game > div:last-child {
+                padding: 1rem;
+                padding-bottom: 3rem;
+                margin-bottom: 2rem;
+            }
+
+            #blackjack-game > div:last-child {
+                padding-bottom: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            
+            /* COMPLETELY PREVENT SCROLL HOP */
+            html {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100%;
+            }
+            
+            body {
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                height: 100vh;
+                margin: 0;
+                padding: 0;
+                touch-action: none;
+            }
+            
+            .container {
+                overflow: hidden;
+                height: 100vh;
+                width: 100vw;
+                position: fixed;
+                top: 0;
+                left: 0;
+            }
+            
+            /* ALL GAME PAGES: NO SCROLL */
+            .game-page {
+                height: 100vh;
+                overflow: hidden;
+                position: fixed;
+                width: 100%;
+                top: 0;
+                left: 0;
+            }
+            
+            #blackjack-game {
                 height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-evenly;
-                padding: 0.8rem;
                 overflow: hidden;
+                touch-action: none;
+            }
+            
+            .blackjack-table {
+                flex: 1;
+                overflow: hidden;
+                display: flex;
+                flex-direction: column;
+                touch-action: none;
+            }
+            
+            /* PREVENT BUTTON SCROLL */
+            button, .bj-btn, .btn, .control-btn {
+                touch-action: manipulation;
+                -webkit-tap-highlight-color: transparent;
+            }
+            
+            button:focus, button:active,
+            .bj-btn:focus, .bj-btn:active {
+                outline: none;
+            }
+            
+            /* ALLOW SCROLLING ONLY ON STRATEGY CHART */
+            #strategy-chart-page {
+                overflow-y: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            
+            .container {
+                max-width: 100vw;
+                padding: 0.5rem;
+            }
+            
+            /* ===== HOME PAGE ===== */
+            .landing {
+                min-height: 100vh;
+                padding: 1rem;
+                justify-content: space-evenly;
             }
             
             .landing h1 {
-                font-size: 2rem;
-                margin: 0.3rem 0;
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
                 letter-spacing: 1px;
             }
             
             .landing .subtitle {
-                font-size: 0.8rem;
-                margin-bottom: 0.5rem;
+                font-size: 0.85rem;
+                margin-bottom: 1rem;
             }
             
             .card-preview {
-                gap: 0.4rem;
-                margin: 0.5rem 0;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
             }
             
             .preview-card {
-                width: 40px;
-                height: 56px;
+                width: 45px;
+                height: 63px;
                 font-size: 1.5rem;
             }
             
             .mode-selector {
                 grid-template-columns: 1fr;
-                gap: 0.8rem;
-                margin: 0.5rem 0;
+                gap: 1rem;
+                margin-bottom: 1rem;
             }
             
             .mode-card {
-                padding: 1rem;
-                border-radius: 10px;
+                padding: 1.2rem;
+                border-radius: 12px;
             }
             
             .mode-icon {
-                font-size: 2rem;
-                margin-bottom: 0.3rem;
+                font-size: 2.5rem;
+                margin-bottom: 0.5rem;
             }
             
             .mode-title {
-                font-size: 1.2rem;
-                margin-bottom: 0.3rem;
+                font-size: 1.3rem;
+                margin-bottom: 0.5rem;
             }
             
             .mode-desc {
-                font-size: 0.75rem;
+                font-size: 0.8rem;
             }
             
             .time-options {
                 gap: 0.5rem;
-                margin: 0.5rem 0;
+                margin-bottom: 1rem;
             }
             
             .time-btn {
-                padding: 0.6rem 0.8rem;
+                padding: 0.6rem 1rem;
                 font-size: 0.8rem;
             }
             
             .btn {
-                padding: 0.7rem 1rem;
+                padding: 0.75rem 1.2rem;
                 font-size: 0.85rem;
             }
             
@@ -1115,48 +1102,41 @@
                 margin-left: 0.5rem;
             }
             
-            /* ===== CARD COUNTING GAME - FIT 844px ===== */
+            /* ===== CARD COUNTING GAME ===== */
             .game-page {
+                min-height: 100vh;
+                padding-top: 0.5rem;
+            
                 height: 100vh;
-                display: flex;
-                flex-direction: column;
-                padding: 0;
-                overflow: hidden;
-            }
+                overflow: hidden;}
             
             .game-header {
-                gap: 0.4rem;
-                padding: 0.4rem;
-                background: rgba(0,0,0,0.3);
-                flex-shrink: 0;
+                gap: 0.5rem;
+                margin-bottom: 1rem;
+                flex-wrap: wrap;
             }
             
             .stat-box {
-                min-width: auto;
-                padding: 0.5rem;
-                flex: 1;
+                min-width: 100px;
+                padding: 0.75rem 1rem;
             }
             
             .stat-label {
-                font-size: 0.65rem;
-                margin-bottom: 0.2rem;
+                font-size: 0.7rem;
             }
             
             .stat-value {
-                font-size: 1.2rem;
+                font-size: 1.5rem;
             }
             
             .card-area {
-                flex: 1;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 0;
+                min-height: 200px;
+                margin-bottom: 1rem;
             }
             
             .playing-card {
-                width: 130px;
-                height: 182px;
+                width: 120px;
+                height: 168px;
             }
             
             .card-rank {
@@ -1176,9 +1156,8 @@
             }
             
             .controls {
-                gap: 0.5rem;
-                padding: 0.5rem;
-                flex-shrink: 0;
+                gap: 1rem;
+                margin-bottom: 1rem;
             }
             
             .control-btn {
@@ -1187,194 +1166,114 @@
                 font-size: 1.3rem;
             }
             
-            /* ===== BLACKJACK SETUP - FIT 844px ===== */
-            #blackjack-setup {
-                height: 100vh;
-                overflow: hidden;
-            }
-            
-            #blackjack-setup .answer-section {
-                padding: 1rem;
-                margin: 0;
-                max-width: 100%;
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-            
-            #blackjack-setup h2 {
-                font-size: 1.5rem;
-                margin-bottom: 1rem;
-            }
-            
-            #blackjack-setup .stat-label {
-                font-size: 0.8rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            /* ===== BLACKJACK GAME - FIT 844px ===== */
-            #blackjack-game {
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                padding: 0;
-                overflow: hidden;
-            }
-            
-            #blackjack-game .game-header {
-                padding: 0.3rem;
-            }
-            
-            #blackjack-game .stat-value {
-                font-size: 1rem;
-            }
-            
-            .strategy-feedback {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 1000;
-                padding: 0.6rem 1rem;
-                font-size: 0.8rem;
-            }
-            
+            /* ===== BLACKJACK ===== */
             .blackjack-table {
-                flex: 1;
-                display: flex;
-                flex-direction: column;
-                border-radius: 50px;
-                padding: 0.5rem;
-                margin: 0;
-                overflow: hidden;
+                border-radius: 100px;
+                padding: 1rem;
+                margin: 1rem 0.5rem;
             }
             
             .dealer-area {
-                padding: 0.3rem;
-                flex-shrink: 0;
+                margin-bottom: 1.5rem;
             }
             
             .dealer-label {
-                font-size: 0.7rem;
-                margin-bottom: 0.3rem;
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
             }
             
             .dealer-cards {
-                gap: -12px;
-                min-height: 50px;
+                gap: -20px;
+                min-height: 100px;
             }
             
             .dealer-total {
-                font-size: 1rem;
-                margin-top: 0.3rem;
+                font-size: 1.3rem;
+                margin-top: 0.5rem;
             }
             
             .player-hands {
                 grid-template-columns: 1fr 1fr;
-                gap: 0.4rem;
-                padding: 0.4rem 0;
-                flex: 1;
-                overflow: visible;
-                min-height: 0;
+                gap: 0.8rem;
+                margin-bottom: 1rem;
             }
             
             .player-hand {
-                padding: 0.4rem;
-                border-radius: 8px;
-                display: flex;
-                flex-direction: column;
-                min-height: 0;
+                padding: 0.8rem;
+                border-radius: 10px;
             }
             
             .hand-label {
-                font-size: 0.65rem;
-                margin-bottom: 0.3rem;
+                font-size: 0.75rem;
+                margin-bottom: 0.5rem;
             }
             
             .hand-result {
-                font-size: 0.75rem;
+                font-size: 0.85rem;
             }
             
             .hand-cards {
-                gap: -12px;
-                min-height: 50px;
-                margin-bottom: 0.5rem;
-                flex-wrap: wrap;
+                gap: -15px;
+                min-height: 80px;
+                margin-bottom: 1rem;
             }
             
             .bj-card {
-                width: 38px;
-                height: 54px;
+                width: 45px;
+                height: 64px;
             }
             
             .bj-card-rank {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
             }
             
             .bj-card-suit {
-                font-size: 0.9rem;
+                font-size: 1rem;
             }
             
             .bj-actions {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 0.4rem;
-                padding: 0.4rem;
-                flex-shrink: 0;
-                background: rgba(0,0,0,0.2);
+                gap: 0.6rem;
+                margin-top: 1rem;
+                flex-wrap: wrap;
+                justify-content: center;
             }
             
             .bj-btn {
-                padding: 0.6rem 0.3rem;
-                font-size: 0.7rem;
+                padding: 0.65rem 1.2rem;
+                font-size: 0.8rem;
             }
             
             .deck-holder {
-                width: 45px;
-                top: 8px;
-                right: 8px;
+                width: 50px;
+                top: 10px;
+                right: 20px;
             }
             
             .deck-stack {
-                height: 65px;
+                height: 75px;
             }
             
             .deck-stack::before,
             .deck-stack::after {
-                height: 65px;
+                height: 75px;
             }
             
-            /* BOTTOM BUTTONS - FULLY VISIBLE */
-            #blackjack-game > div:last-child {
-                padding: 0.5rem;
-                flex-shrink: 0;
-                background: rgba(0,0,0,0.3);
-            }
-            
-            #blackjack-game > div:last-child .btn {
-                padding: 0.7rem 1rem;
+            .strategy-feedback {
+                max-width: 90%;
+                margin: 1rem auto;
+                padding: 0.8rem;
                 font-size: 0.85rem;
-                margin: 0.2rem;
             }
             
-            /* ===== ANSWER PAGE - FIT 844px ===== */
-            #answer-page {
-                height: 100vh;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                overflow: hidden;
-            }
-            
+            /* ===== ANSWER PAGE ===== */
             .answer-section {
                 max-width: 90%;
                 padding: 1.5rem;
-                margin: 1rem;
+                margin: 1rem auto;
             }
             
             .answer-section h2 {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
                 margin-bottom: 1rem;
             }
             
@@ -1390,34 +1289,25 @@
                 font-size: 0.9rem;
             }
             
-            /* ===== LEADERBOARD - FIT 844px ===== */
-            #leaderboard-page {
-                height: 100vh;
-                display: flex;
-                flex-direction: column;
-                overflow: hidden;
-            }
-            
+            /* ===== LEADERBOARD ===== */
             .leaderboard {
                 max-width: 90%;
-                margin: 0.5rem auto;
-                padding: 1rem;
-                flex: 1;
-                overflow-y: auto;
+                margin: 1.5rem auto;
+                padding: 1.5rem;
             }
             
             .leaderboard h2 {
-                font-size: 1.8rem;
+                font-size: 2rem;
                 margin-bottom: 1rem;
             }
             
             .leaderboard-item {
                 padding: 0.8rem;
-                margin-bottom: 0.5rem;
+                margin-bottom: 0.6rem;
             }
             
             .rank {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 min-width: 40px;
             }
             
@@ -1425,84 +1315,193 @@
                 font-size: 1rem;
             }
             
-            /* ===== STRATEGY CHART - SCROLLABLE (ONLY ONE) ===== */
-            #strategy-chart-page {
-                height: 100vh;
-                overflow-y: auto;
-                -webkit-overflow-scrolling: touch;
+            /* ===== BLACKJACK SETUP ===== */
+            #blackjack-setup .answer-section {
+                padding: 1.2rem;
             }
             
-            .strategy-chart-container {
-                padding: 1rem;
+            #blackjack-setup h2 {
+                font-size: 1.5rem;
+            }
+            
+            #blackjack-setup .stat-label {
+                font-size: 0.75rem;
+            }
+        }
+
+    
+        
+        .nosplit { background: rgba(139, 146, 168, 0.3); color: var(--text-secondary); }
+        .splitdas { background: rgba(255, 215, 0, 0.2); color: #ffeb3b; font-size: 0.75em; }
+        .doublestand { background: rgba(0, 212, 255, 0.25); color: #4fc3f7; font-size: 0.8em; }
+        .table-note { margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.8; }
+
+        /* ===== STRATEGY CHART ===== */
+        .strategy-chart-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .strategy-chart-container h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .chart-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+        
+        .chart-section {
+            margin-bottom: 3rem;
+        }
+        
+        .chart-section h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            color: var(--accent-gold);
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+        }
+        
+        .strategy-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        .strategy-table thead {
+            background: var(--bg-surface);
+        }
+        
+        .strategy-table th {
+            padding: 1rem;
+            font-weight: 600;
+            color: var(--accent-green);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .strategy-table td {
+            padding: 0.8rem;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.1);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .strategy-table td:first-child {
+            background: var(--bg-surface);
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+        
+        .hit { background: rgba(255, 71, 87, 0.3); color: var(--accent-red); }
+        .stand { background: rgba(0, 255, 136, 0.3); color: var(--accent-green); }
+        .double { background: rgba(0, 212, 255, 0.3); color: var(--accent-blue); }
+        .split { background: rgba(255, 215, 0, 0.3); color: var(--accent-gold); }
+        .surrender { background: rgba(139, 146, 168, 0.3); color: var(--text-secondary); }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+        }
+        
+        .legend-box {
+            width: 40px;
+            height: 40px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-weight: 700;
+        }
+        
+        /* Mobile Strategy Chart */
+        @media (max-width: 768px) {
+            /* FIX BOTTOM BUTTONS BEING CUT OFF */
+            #blackjack-game {
                 padding-bottom: 3rem;
             }
             
+            #blackjack-game > div:last-child {
+                padding: 1rem;
+                padding-bottom: 3rem;
+                margin-bottom: 2rem;
+            }
+
+            #blackjack-game > div:last-child {
+                padding-bottom: 2rem;
+                margin-bottom: 1rem;
+            }
+
+            .strategy-chart-container {
+                padding: 1rem;
+            }
+            
             .strategy-chart-container h2 {
-                font-size: 1.8rem;
-                margin-bottom: 0.5rem;
+                font-size: 2rem;
             }
             
             .chart-subtitle {
-                font-size: 0.8rem;
+                font-size: 0.85rem;
                 margin-bottom: 1rem;
             }
             
             .chart-section {
-                margin-bottom: 1.5rem;
+                margin-bottom: 2rem;
             }
             
             .chart-section h3 {
-                font-size: 1.2rem;
+                font-size: 1.3rem;
                 margin-bottom: 0.5rem;
             }
             
             .strategy-table {
-                font-size: 0.65rem;
+                font-size: 0.7rem;
             }
             
             .strategy-table th {
-                padding: 0.3rem 0.1rem;
-                font-size: 0.65rem;
+                padding: 0.4rem 0.2rem;
+                font-size: 0.7rem;
             }
             
             .strategy-table td {
-                padding: 0.3rem 0.1rem;
-                font-size: 0.65rem;
-            }
-            
-            .table-legend {
+                padding: 0.4rem 0.2rem;
                 font-size: 0.7rem;
-                padding: 0.5rem;
-                margin-top: 0.5rem;
+            }
+            
+            .legend {
+                gap: 0.8rem;
+                font-size: 0.8rem;
+            }
+            
+            .legend-box {
+                width: 30px;
+                height: 30px;
+                font-size: 0.8rem;
             }
         }
-        
-        /* ========== EXTRA SMALL PHONES (< 375px) ========== */
-        @media (max-width: 374px) {
-            .landing h1 {
-                font-size: 1.7rem;
-            }
-            
-            .playing-card {
-                width: 110px;
-                height: 154px;
-            }
-            
-            .card-rank {
-                font-size: 3rem;
-            }
-            
-            .bj-card {
-                width: 34px;
-                height: 48px;
-            }
-            
-            .bj-btn {
-                font-size: 0.65rem;
-                padding: 0.5rem 0.2rem;
-            }
-        }
-
 
     </style>
 </head>
@@ -1650,12 +1649,13 @@
                 <div class="player-hands" id="player-hands"></div>
                 
                 <div class="bj-actions" id="bj-actions">
-                    <button class="bj-btn" onclick="blackjackGame.hit()">HIT</button>
-                    <button class="bj-btn" onclick="blackjackGame.stand()">STAND</button>
-                    <button class="bj-btn" onclick="blackjackGame.double()">DOUBLE</button>
-                    <button class="bj-btn" onclick="blackjackGame.split()">SPLIT</button>
-                    <button class="bj-btn" onclick="blackjackGame.surrender()">SURRENDER</button>
-                </div>
+    <button class="bj-btn" data-action="hit" onclick="blackjackGame.hit()">HIT</button>
+    <button class="bj-btn" data-action="stand" onclick="blackjackGame.stand()">STAND</button>
+    <button class="bj-btn" data-action="double" onclick="blackjackGame.double()">DOUBLE</button>
+    <button class="bj-btn" data-action="split" onclick="blackjackGame.split()">SPLIT</button>
+    <button class="bj-btn" data-action="surrender" onclick="blackjackGame.surrender()">SURRENDER</button>
+</div>
+
             </div>
             
             <div style="text-align: center; margin-top: 2rem;">
@@ -2272,7 +2272,15 @@
             async split() {
                 const hand = this.hands[this.currentHand];
                 if (this.roundOver || !hand || hand.cards.length !== 2) return;
-                if (hand.cards[0].rank !== hand.cards[1].rank) return;
+                const r0 = String(hand.cards[0].rank);
+const r1 = String(hand.cards[1].rank);
+
+const tenRanks = new Set(['10','J','Q','K']);
+const isPair = r0 === r1;
+const isTenValuePair = tenRanks.has(r0) && tenRanks.has(r1);
+
+if (!isPair && !isTenValuePair) return;
+
                 
                 const correct = this.getCorrectAction();
                 this.checkDecision('P', correct);
@@ -2525,19 +2533,41 @@
             },
             
             enableActions(enabled) {
-                document.querySelectorAll('#bj-actions .bj-btn').forEach(btn => {
-                    btn.disabled = !enabled;
-                });
-                
-                if (enabled && this.hands[this.currentHand]) {
-                    const hand = this.hands[this.currentHand];
-                    document.querySelectorAll('#bj-actions .bj-btn').forEach(btn => {
-                        if (btn.textContent === 'DOUBLE') btn.disabled = hand.cards.length !== 2;
-                        if (btn.textContent === 'SPLIT') btn.disabled = hand.cards.length !== 2 || hand.cards[0].rank !== hand.cards[1].rank;
-                        if (btn.textContent === 'SURRENDER') btn.disabled = hand.cards.length !== 2;
-                    });
-                }
-            },
+    const buttons = document.querySelectorAll('#bj-actions .bj-btn');
+
+    // First enable/disable everything
+    buttons.forEach(btn => btn.disabled = !enabled);
+    if (!enabled) return;
+
+    const hand = this.hands[this.currentHand];
+    if (!hand) return;
+
+    const isTwoCards = hand.cards.length === 2;
+
+    // Normalize ranks (prevents string/number mismatches)
+    const r0 = hand.cards[0]?.rank != null ? String(hand.cards[0].rank) : '';
+    const r1 = hand.cards[1]?.rank != null ? String(hand.cards[1].rank) : '';
+
+    // Allow split for ANY matching pair (2,2 … A,A)
+    const tenRanks = new Set(['10', 'J', 'Q', 'K']);
+const bothTenValue = tenRanks.has(r0) && tenRanks.has(r1);
+
+// ✅ Allow split if same rank OR both are ten-value cards
+const canSplit = isTwoCards && (
+  (r0 !== '' && r0 === r1) ||
+  bothTenValue
+);
+
+
+    buttons.forEach(btn => {
+        const action = btn.dataset.action;
+
+        if (action === 'double') btn.disabled = !isTwoCards;
+        if (action === 'surrender') btn.disabled = !isTwoCards;
+        if (action === 'split') btn.disabled = !canSplit;
+    });
+},
+
             
             render() {
                 // Dealer
@@ -2555,7 +2585,7 @@
                         <div class="hand-cards">${hand.cards.map(c => this.renderCard(c)).join('')}</div>
                     </div>
                 `).join('');
-                handsEl.classList.toggle('too-many', this.hands.length > 4);
+                this.enableActions(!this.roundOver && !this.dealerPlaying);
 
             },
             
